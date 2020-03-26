@@ -32,8 +32,8 @@ export const SignInScreen = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: '#E6E6E6' }}>
             <StatusBar barStyle = "light-content" translucent backgroundColor="transparent"/>
             <Layout style={{ flex: 1 }}>
-                <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#061636', '#12407D']} style={{justifyContent: 'center', height: height / 4 }}>
-                    <Text style={{ color: 'white', fontWeight: 'bold', marginLeft: 20 }} category='h3'>Đăng nhập</Text>
+                <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#061636', '#12407D']} style={{justifyContent: 'center', height: height / 3 }}>
+                    <Text style={{ color: 'white', fontWeight: 'bold', marginLeft: 30 }} category='h3'>Đăng nhập</Text>
                 </LinearGradient>
                 <Layout style={{ marginHorizontal: 20, marginTop: 40 }}>
                     <Input

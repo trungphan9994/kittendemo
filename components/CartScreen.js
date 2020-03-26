@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { SafeAreaView, StyleSheet, Dimensions, FlatList, StatusBar } from 'react-native';
 import { Divider, Icon, Layout, Text, TopNavigation, TopNavigationAction, Card, Button } from '@ui-kitten/components';
 import { ItemCart } from './ItemCart'
@@ -41,8 +41,9 @@ const DATA = [
     price:'590,000'
   }
 ];
-export const CartScreen = ({ navigation }) => {
 
+export const CartScreen = ({ navigation }) => {
+  const [Data,setData] = React.useState(DATA)
   const navigateBack = () => {
     navigation.goBack();
   };
@@ -50,13 +51,16 @@ export const CartScreen = ({ navigation }) => {
   const BackAction = () => (
     <TopNavigationAction icon={BackIcon} onPress={navigateBack} />
   );
+  const handleForDelete=(Gio_hang)=> {
+    setData(Gio_hang)
+  }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <StatusBar barStyle='light-content' backgroundColor='#000'/>
-      <TopNavigation style={{ marginTop: 20 }} title='Giỏ hàng' titleStyle={{ fontWeight: 'bold', fontSize: 20 }} alignment='center' leftControl={BackAction()} />
+      {/* <TopNavigation style={{ marginTop: 20 }} title='Giỏ hàng' titleStyle={{ fontWeight: 'bold', fontSize: 20 }} alignment='center' leftControl={BackAction()} /> */}
       <Layout style={{ flex: 1 }}>
         <FlatList
-          data={DATA}
+          data={Data}
           keyExtractor={item => item.id}
           renderItem={({ item }) => <ItemCart item={item} />}
         />
