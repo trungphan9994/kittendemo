@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item>
-        <shape>
-            <gradient
-                android:angle="0"
-                android:startColor="#061636"
-                android:endColor="#12407D"
-                android:type="linear" />
-        </shape>
-    </item>
+
+    <item
+        android:drawable="@drawable/bgscreen" />
 
     <item
         android:width="250dp"

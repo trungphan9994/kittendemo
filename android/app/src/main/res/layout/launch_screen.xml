@@ -11,4 +11,5 @@
         android:src="@mipmap/logo"
     >
     </ImageView>
+    
 </LinearLayout>

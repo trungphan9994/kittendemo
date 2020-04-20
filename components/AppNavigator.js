@@ -1,90 +1,79 @@
 import React from 'react';
-import { useWindowDimensions,Alert } from 'react-native';
+import { useWindowDimensions, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { SignInScreen } from './SignInScreen';
-import { HomeScreen } from './Home';
-import { navigationRef } from './RootNavigation';
-import { CartScreen } from './CartScreen';
-import { ProfileScreen } from './ProfileScreen';
-import { ProductsDetailsScreen } from './ProductsDetailsScreen';
+import { HomeScreen } from './HomeScreen/Home';
+import { CartScreen } from './CartScreen/CartScreen';
+import ProfileScreen from './ProfileScreen/ProfileScreen';
+import { ProductsDetailsScreen } from './ProductScreen/ProductsDetailsScreen';
+import SignInUpScreen from './SignScreen/SignInUpScreen';
+import OrderManagementScreen from './OrderManagement/OrderManagement.js';
+import SignInScreen from './SignScreen/SignInScreen';
+import SignUpScreen from './SignScreen/SignUpScreen';
+import ForgetPasswordScreen from './ForgetPasswordScreen/ForgetPassword';
+import CheckoutScreen from './CheckoutScreen/CheckoutScreen';
+import AddressScreen from './AddressScreen/AddressScreen';
+import SplashScreen from './SplashScreen/SplashScreen';
+import NotificationScreen from './NotificationScreen/NotificationScreen';
+import OrderTrackScreen from './OrderTrackScreen/OrderTrackScreen';
+import IntroScreen from './IntroAppScreen/IntroScreen';
+import DetailOrder from './OrderManagement/DetailOrder/DetailOrder';
+import ChatScreen from './ChatScreen/ChatScreen';
 import {
   createDrawerNavigator, DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
 import {
-  TabBar, Tab, Layout, Text, TopNavigation,
-  TopNavigationAction, Icon, DrawerHeaderFooter,Button,Avatar
+  Divider, Tab, Layout, Text, TopNavigation,
+  TopNavigationAction, Icon, DrawerHeaderFooter, Button, Avatar
 } from '@ui-kitten/components';
 import Animated from 'react-native-reanimated';
-import * as RootNavigation from './RootNavigation.js';
+import CustomDrawerContent from './CustomDrawerContent'
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
-const ProfileIcon = (style) => (
-  <Avatar size='medium' shape='round' 
-  source={{ uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330' }}
-  />
-);
-const LogoutIcon = (style) => (
-  <Icon {...style} name='log-out' />
-);
-const LogoutButton = (style) => (
-  <Button style={style} icon={LogoutIcon} size='small' onPress={ConfirmLogOut}/>
-);
-const CustomDrawerContent = ({ progress, ...rest }) => {
-  const translateX = Animated.interpolate(progress, {
-    inputRange: [0, 1],
-    outputRange: [-100, 0],
-  });
-  return (
-    <DrawerContentScrollView {...rest}>
-      <Animated.View style={{ transform: [{ translateX }] }}>
-        <DrawerHeaderFooter
-          style={{ height:150}}
-          title='John Doe'
-          description='RN Developer'
-          icon={ProfileIcon}
-          accessory={LogoutButton}
-        />
-        <DrawerItemList {...rest} />
-        <DrawerItem label="Logout" onPress={ConfirmLogOut} />
-      </Animated.View>
-    </DrawerContentScrollView>
-  );
-}
-const ConfirmLogOut=()=>{
-  Alert.alert(
-    'LogOut',
-    'Bạn muốn đăng xuất?',
-    [
-      {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-      {text: 'OK', onPress: () => RootNavigation.navigate(SignInScreen)},
-    ],
-    { cancelable: false }
-  )
-}
+const StackHome = createStackNavigator();
 
 const DrawerNavigator = () => (
-  <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />} drawerType={useWindowDimensions().width > 900 ? 'permanent' : 'front'}
+  <Drawer.Navigator
+    // initialRouteName="SplashScreen" headerMode='none' 
+    drawerContent={props => <CustomDrawerContent {...props} />}
   >
-    <Drawer.Screen name="Home" component={HomeScreen} />
-    <Drawer.Screen name="Profile" component={ProfileScreen} />
+    {/* <Drawer.Screen name='SplashScreen' component={SplashScreen} /> */}
+    <Drawer.Screen name='Home' component={HomeNavigator} />
   </Drawer.Navigator>
 );
 const HomeNavigator = () => (
-  <Stack.Navigator headerMode='none' initialRouteName='SignInScreen'>
-    <Stack.Screen name='SignInScreen' component={SignInScreen} />
-    <Stack.Screen name='HomeScreen' component={DrawerNavigator} />
-    <Stack.Screen name='CartScreen' component={CartScreen} />
+  <Stack.Navigator headerMode='none' initialRouteName='HomeScreen'>
+    <Stack.Screen name='HomeScreen' component={HomeScreen} />
+    <Stack.Screen name='SignInUpScreen' component={SignInUpScreen} />
     <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
     <Stack.Screen name='ProductsDetailsScreen' component={ProductsDetailsScreen} />
+    <Stack.Screen name='CartScreen' component={CartScreen} />
+    <Stack.Screen name='OrderManagementScreen' component={OrderManagementScreen} />
+    <Stack.Screen name='SignInScreen' component={SignInScreen} />
+    <Stack.Screen name='SignUpScreen' component={SignUpScreen} />
+    <Stack.Screen name='ForgetPasswordScreen' component={ForgetPasswordScreen} />
+    <Stack.Screen name='CheckoutScreen' component={CheckoutScreen} />
+    <Stack.Screen name='AddressScreen' component={AddressScreen} />
+    <Stack.Screen name='NotificationScreen' component={NotificationScreen} />
+    <Stack.Screen name='OrderTrackScreen' component={OrderTrackScreen} />
+    <Stack.Screen name='ChatScreen' component={ChatScreen} />
   </Stack.Navigator>
 );
 
 export const AppNavigator = () => (
-  <NavigationContainer ref={navigationRef}>
-    <HomeNavigator />
+  <NavigationContainer >
+    {/* <DrawerNavigator /> */}
+    <StackHome.Navigator initialRouteName="SplashScreen" headerMode='none'>
+      <StackHome.Screen name="SplashScreen" component={SplashScreen} />
+      <StackHome.Screen name="DrawerNavigator" component={DrawerNavigator} />
+      <Stack.Screen name='OrderManagementScreen' component={OrderManagementScreen} />
+      <Stack.Screen name='IntroScreen' component={IntroScreen} />
+      <Stack.Screen name='DetailOrder' component={DetailOrder} />
+      <Stack.Screen name='OrderTrackScreen' component={OrderTrackScreen} />
+      <Stack.Screen name='ChatScreen' component={ChatScreen} />
+    </StackHome.Navigator>
   </NavigationContainer>
 );
